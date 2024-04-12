@@ -1,9 +1,15 @@
-import express from "express";
+import express, { Router } from "express";
+import serverless from "serverless-http";
 
-const app = express();
 
-app.get("/", (req, res) => res.send("Hello World!"));
+const api = express();
 
-app.listen(3000, () => console.log("Example app listening on port 3000!"));
 
-export const {app}
+const router = Router();
+router.get("/hello", (req, res) => res.send("Hello World!"));
+
+
+api.use("/", router);
+
+
+export const handler = serverless(api);
